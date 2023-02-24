@@ -18,12 +18,26 @@ where $titulos/visitas > 30000
 return $titulos/titulo
 
 5. el número total de visitas
+let $visitas := (for $visitas in doc("exercicioXquery.xml")/tutoriales/tutorial/visitas return $visitas ) 
+let $sum :=sum($visitas)
+return <total>{$sum}</total>
 
 6. los nombres de las categorías distintas
+for $catunicas in distinct-values(doc("exercicioXquery.xml")/tutoriales/tutorial/categoria)
+return <categoriasunicas>{$catunicas}</categoriasunicas>
 
 7. nombres y apellidos de los autores eliminando los repetidos y acompañar cada nombre con todos sus tutoriales, ordenados alfabeticametne por nombre de autor.
+for $autor in distinct-values(doc("exercicioXquery.xml")/tutoriales/tutorial/autor)
+let $tutorial := doc("exercicioXquery.xml")/tutoriales/tutorial[autor=$autor]/titulo
+order by $autor
+return 
+   <autores>
+     <nombreyapellidos>{$autor}</nombreyapellidos>
+     {$tutorial}
+   </autores>
 
 8. la media de vistas de los tutoriales de XML
+
 
 9. cuantos tutoriales de XML hay
 
