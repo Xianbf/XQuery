@@ -37,13 +37,19 @@ return
    </autores>
 
 8. la media de vistas de los tutoriales de XML
-
+let $visitas := (for $visitas in doc("exercicioXquery.xml")/tutoriales/tutorial/visitas return $visitas ) 
+let $sum :=sum($visitas)
+return <media>{avg($visitas)}</media>
 
 9. cuantos tutoriales de XML hay
 
+
 10. el nombre del tutorial y su categoría, ordenado por el nombre de cada categoría
+
 
 11. todos los datos de cada tutorial excepto las visitas.
 
+
 12. En una tabla de HTML de dos columnas, el título de los tutoriales y los nombres de los autores.
+
 
