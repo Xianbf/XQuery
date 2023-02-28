@@ -42,14 +42,32 @@ let $sum :=sum($visitas)
 return <media>{avg($visitas)}</media>
 
 9. cuantos tutoriales de XML hay
-
+sum(
+for $tutoriales in doc("exercicioXquery.xml")/tutoriales/tutorial where $tutoriales/categoria = "XML"
+return count($tutoriales)
+)
 
 10. el nombre del tutorial y su categoría, ordenado por el nombre de cada categoría
-
+for $tutoriales in doc("exercicioXquery.xml")/tutoriales/tutorial
+let $tutonombre := $tutoriales/titulo
+let $tutocat := $tutoriales/categoria
+let $completo := ($tutonombre,$tutocat)
+order by $tutocat
+return $completo
 
 11. todos los datos de cada tutorial excepto las visitas.
-
+for $tutoriales in doc("exercicioXquery.xml")/tutoriales
+return <tutorial>{$tutoriales/tutorial/*}</tutorial> except $tutoriales/tutorial/visitas
 
 12. En una tabla de HTML de dos columnas, el título de los tutoriales y los nombres de los autores.
-
+<table><tr><td>{for $tutoriales in doc("exercicioXquery.xml")/tutoriales/tutorial
+let $tutotitulo := $tutoriales/titulo
+return $tutotitulo}
+</td></tr>
+<tr><td>
+{for $tutoriales in doc("exercicioXquery.xml")/tutoriales/tutorial
+let $tutonombre := $tutoriales/autor/nombre
+return $tutonombre}
+</td></tr>
+</table>
 
